@@ -1,5 +1,7 @@
 <template>
-  <div class="task-card" :class="{ completed: props.taskData.completed }">
+  <div
+      class="task-card"
+      :class="{ completed: props.taskData.completed }">
     <div class="task-header">
       <input
           type="checkbox"
@@ -11,11 +13,20 @@
       {{ props.taskData.title }}
     </h3>
     <p>{{ props.taskData.description }}</p>
+    <button
+        @click="tasksStore.removeTask(props.taskData.id)"
+        class="delete-btn"
+    >
+      Удалить
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
+import {useTasksStore} from "../store/tasks.ts";
+
 const props = defineProps(["taskData"]);
+const tasksStore = useTasksStore();
 </script>
 
 <style scoped>

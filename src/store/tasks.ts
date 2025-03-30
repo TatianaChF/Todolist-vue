@@ -31,5 +31,10 @@ export const useTasksStore = defineStore('tasksData', () => {
         tasks.value.unshift(newTask);
     }
 
-    return {tasks, getTasks, addTask}
+    const removeTask = (id: string) => {
+        tasks.value = tasks.value.filter(task => task.id !== id);
+        console.log(tasks.value);
+    }
+
+    return {tasks, getTasks, addTask, removeTask}
 })
