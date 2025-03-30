@@ -1,5 +1,7 @@
 <template>
-  <p>Страница задач</p>
+  <p>ToDo-list</p>
+  <button @click="isOpenForm = true">Добавить задачу</button>
+  <TaskForm v-show="isOpenForm" />
   <div
       v-for="task in tasksStore.tasks"
       :key="task.id">
@@ -9,9 +11,11 @@
 
 <script setup lang="ts">
 import {useTasksStore} from "../store/tasks.ts";
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import Task from "./Task.vue";
+import TaskForm from "./TaskForm.vue";
 
+const isOpenForm = ref(false);
 const tasksStore = useTasksStore();
 
 defineProps({
