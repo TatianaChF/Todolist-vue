@@ -36,5 +36,13 @@ export const useTasksStore = defineStore('tasksData', () => {
         console.log(tasks.value);
     }
 
-    return {tasks, getTasks, addTask, removeTask}
+    const changeCompleteTask = (id: string) => {
+        const task = tasks.value.find(task => task.id === id);
+
+        if (task) {
+            task.completed = !task.completed;
+        }
+    }
+
+    return {tasks, getTasks, addTask, removeTask, changeCompleteTask}
 })
