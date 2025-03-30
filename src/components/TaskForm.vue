@@ -27,10 +27,13 @@ import {ref} from "vue";
 const newTitle = ref();
 const newDescription = ref();
 const tasksStore = useTasksStore();
+const emits = defineEmits(["showForm"]);
 
 const handleAddTask = () => {
   tasksStore.addTask(newTitle.value, newDescription.value);
   newTitle.value = "";
   newDescription.value = "";
+  emits("showForm");
 }
+
 </script>
