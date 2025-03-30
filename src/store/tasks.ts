@@ -1,6 +1,7 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
 import { v4 as generateId } from 'uuid';
+import task from "../components/Task.vue";
 
 export interface Task {
     id: string;
@@ -44,5 +45,19 @@ export const useTasksStore = defineStore('tasksData', () => {
         }
     }
 
-    return {tasks, getTasks, addTask, removeTask, changeCompleteTask}
+    const updateTask = (id: string, title: string, description: string) => {
+        const taskIndex = tasks.value.findIndex(t => t.id === id);
+
+        if (taskIndex >= 0) {
+            tasks.value[taskIndex] = {
+                id: task.id,
+                title: title,
+                description: description,
+                completed: task.completed,
+            };
+        }
+    }
+
+    return {tasks, getTasks, addTask,
+        removeTask, changeCompleteTask, updateTask}
 })
