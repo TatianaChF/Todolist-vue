@@ -20,5 +20,9 @@ export const useTasksStore = defineStore('tasksData', () => {
         }
     }
 
-    return {tasks, getTasks}
+    const addTask = (task: Task) => {
+        tasks.value.push(task);
+    }
+
+    return {tasks, getTasks, addTask}
 })
