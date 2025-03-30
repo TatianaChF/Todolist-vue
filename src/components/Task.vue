@@ -19,13 +19,22 @@
         class="delete-btn">
       Удалить
     </button>
+    <button>
+      Изменить
+    </button>
   </div>
+  <EditTaskForm
+      v-show="isOpenEditForm"
+      :task="taskData" />
 </template>
 
 <script setup lang="ts">
 import {useTasksStore} from "../store/tasks.ts";
+import EditTaskForm from "./EditTaskForm.vue";
+import {ref} from "vue";
 
-const props = defineProps(["taskData"]);
+const isOpenEditForm = ref(false);
+const props = defineProps(["taskData", "task"]);
 const tasksStore = useTasksStore();
 </script>
 
