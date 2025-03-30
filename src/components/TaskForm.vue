@@ -2,13 +2,19 @@
   <div>
     <div>
       <label for="title">Название задачи</label>
-      <input name="title" type="text" v-model="newTitle" />
+      <input name="title"
+             type="text"
+             v-model="newTitle"
+             placeholder="Введите заголовок" />
     </div>
     <div>
       <label for="description">Описание</label>
-      <textarea name="description" v-model="newDescription" />
+      <textarea
+          name="description"
+          v-model="newDescription"
+          placeholder="Добавьте описание" />
     </div>
-    <button @click="tasksStore.addTask(newTitle, newDescription)">
+    <button @click="handleAddTask">
       Добавить
     </button>
   </div>
@@ -22,4 +28,9 @@ const newTitle = ref();
 const newDescription = ref();
 const tasksStore = useTasksStore();
 
+const handleAddTask = () => {
+  tasksStore.addTask(newTitle.value, newDescription.value);
+  newTitle.value = "";
+  newDescription.value = "";
+}
 </script>
