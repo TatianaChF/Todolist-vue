@@ -1,5 +1,5 @@
 <template>
-  <p>ToDo-list</p>
+  <h1>ToDo-list</h1>
   <button @click="isOpenForm = true">Добавить задачу</button>
   <TaskForm v-show="isOpenForm" />
   <div
