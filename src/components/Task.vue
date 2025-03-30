@@ -7,7 +7,8 @@
           type="checkbox"
           name="completed"
           :checked="props.taskData.completed"
-          class="task-checkbox" />
+          class="task-checkbox"
+          @change="tasksStore.changeCompleteTask(props.taskData.id)" />
     </div>
     <h3 class="task-title">
       {{ props.taskData.title }}
@@ -15,8 +16,7 @@
     <p>{{ props.taskData.description }}</p>
     <button
         @click="tasksStore.removeTask(props.taskData.id)"
-        class="delete-btn"
-    >
+        class="delete-btn">
       Удалить
     </button>
   </div>
