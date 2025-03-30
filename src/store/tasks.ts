@@ -1,8 +1,9 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
+import { v4 as generateId } from 'uuid';
 
 export interface Task {
-    id: number;
+    id: string;
     title: string;
     description: string;
     completed: boolean;
@@ -20,8 +21,14 @@ export const useTasksStore = defineStore('tasksData', () => {
         }
     }
 
-    const addTask = (task: Task) => {
-        tasks.value.push(task);
+    const addTask = (title: string, description: string) => {
+        const newTask = {
+            id: generateId(),
+            title: title,
+            description: description,
+            completed: false
+        };
+        tasks.value.unshift(newTask);
     }
 
     return {tasks, getTasks, addTask}
