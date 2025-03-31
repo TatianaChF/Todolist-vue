@@ -20,7 +20,7 @@
     <div class="form-actions">
       <button
           type="button"
-          @click="$emit('cancel')"
+          @click="$emit('cancelForm')"
           class="btn cancel-btn"
           :disabled="isSubmitting"
       >
@@ -39,17 +39,23 @@
 
 <script setup lang="ts">
 import {reactive, ref} from "vue";
+import {useTasksStore} from "../store/tasks.ts";
 
 const props = defineProps(["task"]);
+const emits = defineEmits(["cancelForm"]);
 
 const form = reactive({
   title: props.task.title,
   description: props.task.description
 });
 const isSubmitting = ref(false);
+const tasksStore = useTasksStore();
 
 const handleSubmit = async () => {
   if (!form.title.trim()) return;
+
+  tasksStore.updateTask(props.task.id, form.title, form.description);
+  emits('cancelForm');
 
   isSubmitting.value = true;
 };

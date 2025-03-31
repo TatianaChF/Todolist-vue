@@ -19,13 +19,14 @@
         class="delete-btn">
       Удалить
     </button>
-    <button>
+    <button @click="isOpenEditForm = true">
       Изменить
     </button>
   </div>
   <EditTaskForm
       v-show="isOpenEditForm"
-      :task="taskData" />
+      :task="taskData"
+      @cancel-form="isOpenEditForm = false" />
 </template>
 
 <script setup lang="ts">
