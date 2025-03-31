@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import {useTasksStore} from "../store/tasks.ts";
-import {computed, onMounted, ref} from "vue";
+import {onMounted, ref} from "vue";
 import Task from "./Task.vue";
 import TaskForm from "./TaskForm.vue";
 
@@ -35,30 +35,3 @@ onMounted(() => {
   tasksStore.getTasks();
 })
 </script>
-
-<style scoped>
-.container {
-
-}
-
-h1 {
-  text-align: center;
-  font-size: 50px;
-  color: #020235;
-}
-
-.btn-add-task {
-  border-radius: 10px;
-  color: white;
-  font-size: 16px;
-  transition: .2s linear;
-  background: #0B63F6;
-  padding: 15px 15px;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-add-task:hover {
-  box-shadow: 0 0 0 2px white, 0 0 0 4px #3C82F8;
-}
-</style>
