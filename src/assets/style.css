@@ -1,5 +1,5 @@
 .container {
-    margin-top: 3%;
+    margin-top: 1rem;
 }
 
 .container-hidden-space {
@@ -7,8 +7,9 @@
 }
 
 h1 {
-    font-size: 50px;
+    font-size: 2.5rem;
     color: #020235;
+    text-align: center;
 }
 
 .btn-add-task {
@@ -99,13 +100,14 @@ h1 {
 }
 
 .form {
-    position: absolute;
+    position: fixed;
     display: flex;
     flex-direction: column;
     width: 50%;
     gap: 10px;
+    max-width: 600px;
     background: #e4e5e8;
-    padding: 40px;
+    padding: 2rem;
     border-radius: 10px;
     border: 1px #475569;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.37);
@@ -163,4 +165,98 @@ textarea {
 .btn-cancel:hover {
     background-color: rgba(246, 11, 93, 0.62);
     color: white;
+}
+
+@media (min-width: 1024px) {
+    h1 {
+        font-size: 4rem;
+    }
+
+    .task-card {
+        width: 90%;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        margin-top: 3%;
+        padding: 0 2rem;
+    }
+
+    h1 {
+        font-size: 3.5rem;
+        text-align: left;
+    }
+
+    .task-card {
+        justify-content: space-between;
+        padding: 1.5rem;
+    }
+
+    .btn-add-task {
+        padding: 15px 25px;
+        font-size: 16px;
+        width: auto;
+        margin: 0 0 20px;
+    }
+
+    .task-title {
+        font-size: 1rem;
+    }
+
+    .task-description {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .form {
+        padding: 1rem;
+    }
+
+    .form-group label {
+        font-size: 1rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 90%;
+    }
+
+    .btn-add-task,
+    .btn-cancel {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-btns {
+        flex-direction: column;
+    }
+
+    .task-header input {
+        width: 90%;
+    }
+
+    .task-title {
+        font-size: 1rem;
+    }
+
+    .task-description {
+        font-size: 0.9rem;
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .btn-add-task:hover {
+        box-shadow: 0 0 0 2px white, 0 0 0 4px #3C82F8;
+    }
+
+    .task-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .delete-btn:hover {
+        opacity: 0.7;
+    }
 }
