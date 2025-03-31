@@ -10,18 +10,26 @@
           class="task-checkbox"
           @change="tasksStore.changeCompleteTask(props.taskData.id)" />
     </div>
-    <h3 class="task-title">
-      {{ props.taskData.title }}
-    </h3>
-    <p>{{ props.taskData.description }}</p>
-    <button
-        @click="tasksStore.removeTask(props.taskData.id)"
-        class="delete-btn">
-      Удалить
-    </button>
-    <button @click="isOpenEditForm = true">
-      Изменить
-    </button>
+    <div>
+      <h3 class="task-title">
+        {{ props.taskData.title }}
+      </h3>
+      <p class="task-description">
+        {{ props.taskData.description }}
+      </p>
+    </div>
+    <div>
+      <button
+          @click="isOpenEditForm = true"
+          class="change-btn">
+        ✏️
+      </button>
+      <button
+          @click="tasksStore.removeTask(props.taskData.id)"
+          class="delete-btn">
+        🗑️
+      </button>
+    </div>
   </div>
   <EditTaskForm
       v-show="isOpenEditForm"
@@ -41,11 +49,16 @@ const tasksStore = useTasksStore();
 
 <style scoped>
 .task-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
   background: white;
   border-radius: 8px;
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
+  margin-bottom: 1rem;
 }
 
 .task-card.completed {
@@ -83,20 +96,11 @@ const tasksStore = useTasksStore();
   font-size: 0.9em;
 }
 
-.task-footer {
-  margin-top: 0.5rem;
-  color: #94a3b8;
-  font-size: 0.8em;
-}
-
-.delete-btn {
+.delete-btn,
+.change-btn {
   background: none;
   border: none;
-  color: #dc2626;
-  font-size: 1.25rem;
   cursor: pointer;
-  padding: 0 0.5rem;
-  transition: opacity 0.2s;
 }
 
 .delete-btn:hover {
