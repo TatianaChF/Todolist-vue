@@ -1,5 +1,7 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form
+      @submit.prevent="handleSubmit"
+      class="form">
     <div class="form-group">
       <label>Название:</label>
       <input
@@ -17,18 +19,18 @@
           rows="3"
       ></textarea>
     </div>
-    <div class="form-actions">
+    <div class="form-btns">
       <button
           type="button"
           @click="$emit('cancelForm')"
-          class="btn cancel-btn"
+          class="btn-cancel"
           :disabled="isSubmitting"
       >
         Отмена
       </button>
       <button
           type="submit"
-          class="btn save-btn"
+          class="btn-add-task"
           :disabled="isSubmitting"
       >
         {{ isSubmitting ? 'Сохранение...' : 'Сохранить' }}
