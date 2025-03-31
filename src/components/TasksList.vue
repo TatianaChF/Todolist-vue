@@ -8,17 +8,34 @@
     <TaskForm
         v-show="isOpenForm"
         @change-show-form="isOpenForm = false"/>
-    <div
-        v-for="task in tasksStore.tasks"
-        :key="task.id">
-      <Task :taskData="task" />
+    <div v-if="uncompletedTasks.length">
+      <h2>Текущие задачи</h2>
+      <div
+          v-for="task in uncompletedTasks"
+          :key="task.id">
+        <Task :taskData="task" />
+      </div>
+    </div>
+
+    <div v-if="completedTasks.length">
+      <h2>Выполненные задачи</h2>
+      <div
+          v-for="task in completedTasks"
+          :key="task.id">
+        <Task :taskData="task" />
+      </div>
+    </div>
+
+    <div v-if="!tasksStore.tasks.length"
+         class="empty-state">
+      🎉 Пока нет задач! Добавьте первую задачу.
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import {useTasksStore} from "../store/tasks.ts";
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import Task from "./Task.vue";
 import TaskForm from "./TaskForm.vue";
 
@@ -34,4 +51,12 @@ defineProps({
 onMounted(() => {
   tasksStore.getTasks();
 })
+
+const uncompletedTasks = computed(() =>
+    tasksStore.tasks.filter(task => !task.completed)
+);
+
+const completedTasks = computed(() =>
+    tasksStore.tasks.filter(task => task.completed)
+);
 </script>
