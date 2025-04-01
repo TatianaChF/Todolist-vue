@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed, reactive, ref} from "vue";
+import {computed, reactive} from "vue";
 import {useTasksStore} from "../../store/tasks.ts";
 
 const props = defineProps(["task"]);
