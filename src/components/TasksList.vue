@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import {useTasksStore} from "../store/tasks.ts";
-import {computed, onMounted, ref} from "vue";
+import {computed, onBeforeMount, ref} from "vue";
 import Task from "./Task.vue";
 import TaskForm from "./TaskForm.vue";
 
@@ -48,7 +48,7 @@ defineProps({
   taskData: Object
 })
 
-onMounted(() => {
+onBeforeMount(() => {
   tasksStore.getTasks();
 })
 

@@ -1,7 +1,6 @@
 import {defineStore} from "pinia";
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import { v4 as generateId } from 'uuid';
-import task from "../components/Task.vue";
 
 export interface Task {
     id: string;
@@ -10,52 +9,75 @@ export interface Task {
     completed: boolean;
 }
 
+export const LOCAL_STORAGE_KEY = "tasksStorage";
+
 export const useTasksStore = defineStore('tasksData', () => {
     let tasks = ref<Array<Task>>([]);
+    let isResponse = ref(true);
+
+    const loadFromLocalStorage = () => {
+        const tasksLocalStorage = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (tasksLocalStorage) {
+            try {
+                tasks.value = JSON.parse(tasksLocalStorage);
+            } catch (error) {
+                console.error('Ошибка загрузки из localStorage:', error);
+                localStorage.removeItem(LOCAL_STORAGE_KEY);
+            }
+        }
+    };
+
+    loadFromLocalStorage();
+
+    // Автосохранение при изменении задач
+    watch(
+        tasks,
+        (newTasks) => {
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTasks));
+        },
+        { deep: true }
+    );
 
     const getTasks = async () => {
-        try {
-            const response = await fetch("https://67e90de9bdcaa2b7f5b8707c.mockapi.io/list/tasks");
-            tasks.value = await response.json() as Task[];
-        } catch (error) {
-            console.log(error);
+        if (tasks.value.length === 0) {
+            try {
+                const response = await fetch("https://67e90de9bdcaa2b7f5b8707c.mockapi.io/list/tasks");
+                tasks.value = await response.json() as Task[];
+                isResponse.value = false;
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 
     const addTask = (title: string, description: string) => {
         const newTask = {
             id: generateId(),
-            title: title,
-            description: description,
+            title: title.trim(),
+            description: description.trim(),
             completed: false
         };
-        tasks.value.unshift(newTask);
+        tasks.value = [newTask, ...tasks.value];
     }
 
     const removeTask = (id: string) => {
         tasks.value = tasks.value.filter(task => task.id !== id);
-        console.log(tasks.value);
     }
 
     const changeCompleteTask = (id: string) => {
-        const task = tasks.value.find(task => task.id === id);
-
-        if (task) {
-            task.completed = !task.completed;
-        }
+        tasks.value = tasks.value.map(task =>
+            task.id === id
+                ? { ...task, completed: !task.completed }
+                : task
+        );
     }
 
     const updateTask = (id: string, title: string, description: string) => {
-        const taskIndex = tasks.value.findIndex(t => t.id === id);
-
-        if (taskIndex >= 0) {
-            tasks.value[taskIndex] = {
-                id: task.id,
-                title: title,
-                description: description,
-                completed: task.completed,
-            };
-        }
+        tasks.value = tasks.value.map(task =>
+            task.id === id
+                ? { ...task, title: title.trim(), description: description.trim() }
+                : task
+        );
     }
 
     return {tasks, getTasks, addTask,
