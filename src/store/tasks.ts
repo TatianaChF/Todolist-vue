@@ -82,18 +82,22 @@ export const useTasksStore = defineStore('tasksData', () => {
     }
 
     const filteredTasks = computed(() => {
-        switch(currentFilter.value) {
+        const filter = currentFilter.value;
+        const allTasks = tasks.value;
+
+        switch(filter) {
             case 'completed':
                 return tasks.value.filter(task => task.completed);
             case 'uncompleted':
                 return tasks.value.filter(task => !task.completed);
             default:
-                return tasks.value;
+                return [...allTasks];
         }
     });
 
     const setFilter = (filter: FilterType) => {
         currentFilter.value = filter;
+        console.log(tasks.value);
     };
 
     return {tasks, getTasks, addTask,
