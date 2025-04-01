@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import {useTasksStore} from "../store/tasks.ts";
+import {useTasksStore} from "../../store/tasks.ts";
 import {computed, ref} from "vue";
 
 const newTitle = ref("");

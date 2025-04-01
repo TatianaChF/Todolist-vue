@@ -39,7 +39,7 @@
 
 <script setup lang="ts">
 import {useTasksStore} from "../store/tasks.ts";
-import EditTaskForm from "./EditTaskForm.vue";
+import EditTaskForm from "./Forms/EditTaskForm.vue";
 import {ref} from "vue";
 
 const isOpenEditForm = ref(false);

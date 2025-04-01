@@ -40,7 +40,7 @@
 
 <script setup lang="ts">
 import {computed, reactive, ref} from "vue";
-import {useTasksStore} from "../store/tasks.ts";
+import {useTasksStore} from "../../store/tasks.ts";
 
 const props = defineProps(["task"]);
 const emits = defineEmits(["cancelForm"]);

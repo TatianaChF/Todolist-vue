@@ -38,7 +38,7 @@
 import {useTasksStore} from "../store/tasks.ts";
 import {computed, onBeforeMount, ref} from "vue";
 import Task from "./Task.vue";
-import TaskForm from "./TaskForm.vue";
+import TaskForm from "./Forms/TaskForm.vue";
 import TaskFilter from "./TaskFilter.vue";
 
 const isOpenForm = ref<boolean>(false);
