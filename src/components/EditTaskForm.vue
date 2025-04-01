@@ -24,23 +24,22 @@
           type="button"
           @click="$emit('cancelForm')"
           class="btn-cancel"
-          :disabled="isSubmitting"
       >
         Отмена
       </button>
       <button
           type="submit"
-          class="btn-add-task"
-          :disabled="isSubmitting"
+          :class="changeBtnStyle"
+          :disabled="isDisabled"
       >
-        {{ isSubmitting ? 'Сохранение...' : 'Сохранить' }}
+        Сохранить
       </button>
     </div>
   </form>
 </template>
 
 <script setup lang="ts">
-import {reactive, ref} from "vue";
+import {computed, reactive, ref} from "vue";
 import {useTasksStore} from "../store/tasks.ts";
 
 const props = defineProps(["task"]);
@@ -50,7 +49,6 @@ const form = reactive({
   title: props.task.title,
   description: props.task.description
 });
-const isSubmitting = ref(false);
 const tasksStore = useTasksStore();
 
 const handleSubmit = async () => {
@@ -58,7 +56,13 @@ const handleSubmit = async () => {
 
   tasksStore.updateTask(props.task.id, form.title, form.description);
   emits('cancelForm');
-
-  isSubmitting.value = true;
 };
+
+const isDisabled = computed(() => {
+  return form.title === "" || form.description === "";
+});
+
+const changeBtnStyle = computed(() => {
+  return form.title === "" || form.description === "" ? "btn-add-task-disabled" : "btn-add-task";
+})
 </script>

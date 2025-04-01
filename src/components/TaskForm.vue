@@ -20,7 +20,8 @@
         Отмена
       </button>
       <button @click="handleAddTask"
-              class="btn-add-task">
+              :class="changeBtnStyle"
+              :disabled="isDisabled" >
         Добавить
       </button>
     </div>
@@ -29,10 +30,10 @@
 
 <script setup lang="ts">
 import {useTasksStore} from "../store/tasks.ts";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 
-const newTitle = ref();
-const newDescription = ref();
+const newTitle = ref("");
+const newDescription = ref("");
 const tasksStore = useTasksStore();
 const emits = defineEmits(["changeShowForm"]);
 
@@ -42,4 +43,12 @@ const handleAddTask = () => {
   newDescription.value = "";
   emits("changeShowForm");
 }
+
+const isDisabled = computed(() => {
+  return newTitle.value === "" || newDescription.value === "";
+});
+
+const changeBtnStyle = computed(() => {
+  return newTitle.value === "" || newDescription.value === "" ? "btn-add-task-disabled" : "btn-add-task";
+})
 </script>
