@@ -5,6 +5,7 @@
             class="btn-add-task">
       Добавить задачу
     </button>
+    <TaskFilter />
     <TaskForm
         v-show="isOpenForm"
         @change-show-form="isOpenForm = false"/>
@@ -38,6 +39,7 @@ import {useTasksStore} from "../store/tasks.ts";
 import {computed, onBeforeMount, ref} from "vue";
 import Task from "./Task.vue";
 import TaskForm from "./TaskForm.vue";
+import TaskFilter from "./TaskFilter.vue";
 
 const isOpenForm = ref<boolean>(false);
 const tasksStore = useTasksStore();
@@ -53,10 +55,10 @@ onBeforeMount(() => {
 })
 
 const uncompletedTasks = computed(() =>
-    tasksStore.tasks.filter(task => !task.completed)
+    tasksStore.filteredTasks.filter(task => !task.completed)
 );
 
 const completedTasks = computed(() =>
-    tasksStore.tasks.filter(task => task.completed)
+    tasksStore.filteredTasks.filter(task => task.completed)
 );
 </script>
