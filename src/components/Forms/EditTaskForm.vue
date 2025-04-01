@@ -8,14 +8,12 @@
           type="text"
           v-model.trim="form.title"
           required
-          :disabled="isSubmitting"
       />
     </div>
     <div class="form-group">
       <label>Описание:</label>
       <textarea
           v-model.trim="form.description"
-          :disabled="isSubmitting"
           rows="3"
       ></textarea>
     </div>
